@@ -63,7 +63,7 @@ int apiSys() {
     int fileSys();
     cout << "This application currently only supports GitHub's API system." << endl;
     cout << "For your own reference the base URL is https://api.github.com/" << endl;
-    cout << "Choose whether you would like to embed a single repository or a list (found using filters). [R (single repo)/L (list of repos) ";
+    cout << "Choose whether you would like to embed a single repository or a list (found using filters). [R (single repo)/L (list of repos) [FUTURE RELEASE] ";
     cin >> repoSearchType;
     if (repoSearchType == "R" || repoSearchType == "r") {
         cout << "Please type the owner of the repository you are trying to embed: ";
@@ -84,6 +84,10 @@ int apiSys() {
         cout << "Include the description? [Y/N] ";
         cin >> repoDesc;
         return fileSys();
+    }
+    else {
+        cout << "Sorry! The only option you have right now is to embed one repository at a time. Make sure to type R next time." << endl;
+        return apiSys();
     }
 }
 int fileSys() {
