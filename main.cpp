@@ -1,3 +1,6 @@
+//CODE CREATED BY OWEN MAGILL
+//PLEASE RESPECT THE EFFORT PUT INTO THIS CODE
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -25,12 +28,22 @@ string fileTitleLink;
 string fileTitleLinkCustom = "#";
 string fileTitleClassName;
 string fileFullNameClassName;
+string fileDescClassName;
 string listLinkExist;
 bool startup = true;
 string prefsName;
 string prefsColon;
 string prefsValue;
+string listFilter;
+string listUrl;
+string listInNameKeyword;
+string apiSysType;
+string discordClassName;
+string uninstallLoc = "unins000.exe";
+string mainCommand;
+string confirmUnis;
 
+//main application. responsible for main tasks
 int main() {
     //start API++
     int prefs();
@@ -40,12 +53,13 @@ int main() {
     }
     cout << "API++ starting..." << endl;
     cout << "Reading prefs file..." << endl;
+    //warn the user
+    cout << "NOTE: THIS IS A STABLE RELEASE BUT INCOMPLETE AND INCONSISTENT." << endl;
     system("title API++");
     int apiSys();
-    cout << "Start new api operation? [Y/N] ";
-    cin >> newApiOp;
-    system("cls");
-    if (newApiOp == "y" || newApiOp == "Y") {
+    cout << "API++ ready..." << endl;
+    cin >> mainCommand;
+    if (mainCommand == "newapiop") {
         cout << "Embed the code directly into a HTML file or put it in a JavaScript file? [H (HTML)/J (JavaScript)] ";
         cin >> fileType;
         if (fileType == "h" || fileType == "H") {
@@ -59,18 +73,40 @@ int main() {
             return apiSys();
         }
     }
+    else if (mainCommand == "help") {
+        cout << "Need help? Visit the documentation! (https://piccolowen.github.io/code/apipp/documentation/intro.html)" << endl;
+    }
     else {
-        cout << "Exiting..." << endl;
-        system("pause");
-        return 0;
+        cout << "Whoops! Not a command! Hint: type 'newapiop' to create a new API system!" << endl;
     }
     return 0;
 }
+
+//THIS CODE WILL BE CHANGED SINCE THERE WILL BE MORE SUPPORTED APIS IN THE FUTURE
+//get the type of API sys
 int apiSys() {
-    int fileSys();
+    int githubapisys();
+    int discordapisys();
     system("cls");
     //fetch type of embed
-    cout << "This application currently only supports GitHub's API system." << endl;
+    cout << "What API system will you be making? [G (GitHub)/D (Dicord)]" << endl;
+    cin >> apiSysType;
+    if (apiSysType == "g" || apiSysType == "G") {
+        return githubapisys();
+    }
+    else if (apiSysType == "d" || apiSysType == "D") {
+        return discordapisys();
+    }
+}
+
+int discordapisys() {
+    int discordstatusapisys();
+    cout << "API++ only works with Discord's status API." << endl;
+    return discordstatusapisys();
+}
+
+int githubapisys() {
+    int fileSys();
     cout << "For your own reference the base URL is https://api.github.com/" << endl;
     cout << "Choose whether you would like to embed a single repository or a list (found using filters). [R (single repo)/L (list of repos) ";
     cin >> repoSearchType;
@@ -132,24 +168,27 @@ int apiSys() {
             \nFilter by whether a repo is a mirror or not [mirror] \
             \nFilter by whether a repo has been archived or not [arch] \
             " << endl;
+            cin >> listFilter;
+            system("cls");
             return fileSys();
         }
         else {
-            cout << "Whoops! Not one of your options! (API++ is still going to say you don't have a link)" << endl;
+            cout << "Whoops! Not one of your options! (API++ is still going to say you don't have a link) ERRORCODE=0x0" << endl;
             return fileSys();
         }
     }
     else {
-        cout << "Not one of your options" << endl;
+        cout << "Not one of your options ERRORCODE=0x0" << endl;
         system("cls");
         return apiSys();
     }
 }
+
+//get file info
 int fileSys() {
     int singleFile();
     int listFile();
     ofstream file;
-    //get file info
         if (javascriptFile == true) {
             cout << "What should the JavaScript file be named? (no spaces) ";
             cin >> fileName;
@@ -182,11 +221,17 @@ int fileSys() {
                 return listFile();
             }
         }
+        else if (fullFilePathConfirm == "n" || fullFilePathConfirm == "N") {
+            return fileSys();
+        }
         //return back to filesys if user is not satisfied
         else {
+            cout << "Not one of your options! ERRORCODE=0" << endl;
             return fileSys();
         }
 }
+
+//create single repo file for github
 int singleFile() {
     system(("title API++ - New file: "+ fullFilePath).c_str());
             ofstream file((fullFilePath).c_str());
@@ -194,7 +239,7 @@ int singleFile() {
                 file << "<!DOCTYPE html>" << endl;
                 file << "<html>" << endl;
                 file << "<head>" << endl;
-                file << "<title>api++ auto generated file</title>" << endl;
+                file << "<title>API++ auto generated file</title>" << endl;
                 file << "</head>" << endl;
                 file << "<body>" << endl;
                 file << "<script>" << endl;
@@ -269,11 +314,11 @@ int singleFile() {
                 file << "console.log('desc result: ' + result.description)" << endl;
                 file << "const desc = document.createElement('p')" << endl;
                 cout << "What should the class value be for the description? (the class name allows styling with CSS) [no spaces] ";
-                cin >> fileFullNameClassName;
+                cin >> fileDescClassName;
                 system("cls");
-                cout << "Class name: " << fileFullNameClassName << endl;
+                cout << "Class name: " << fileDescClassName << endl;
                 system("cls");
-                file << "desc.className = '" << fileFullNameClassName << "'" << endl;
+                file << "desc.className = '" << fileDescClassName << "'" << endl;
                 file << "desc.textContent = result.description" << endl;
                 file << "apiresult.appendChild(desc)" << endl;
             }
@@ -287,12 +332,163 @@ int singleFile() {
                 cout << "Make sure to add an element with ID value: " << fileIdValue << "!" << endl;
             }
 }
+
+//create url for list system for github
 int listFile() {
+    int listInNameFile();
     system(("title API++ - New file: "+ fullFilePath).c_str());
-    cout << "This part of the program is not here yet." << endl;
-    system("pause");
-    return 0;
+    if (listFilter == "inname") {
+        cout << "Please type the keyword you are searching for: ";
+        cin >> listInNameKeyword;
+        listUrl = "https://api.github.com/search/repositories?q=" + listInNameKeyword + "+in:name";
+        cout << "Here is the API URL :" << listUrl << endl;
+        return listInNameFile();
+    }
+    else {
+        cout << "Not one of your options! ERRORCODE=0x0" << endl;
+    }
 }
+
+//creates file for list api sys
+int listInNameFile() {
+    system(("title API++ - New file: "+ fullFilePath).c_str());
+    ofstream file((fullFilePath).c_str());
+    if (javascriptFile == false) {
+        file << "<!DOCTYPE html>" << endl;
+        file << "<html>" << endl;
+        file << "<head>" << endl;
+        file << "<title>API++ auto generated file</title>" << endl;
+        file << "</head>" << endl;
+        file << "<body>" << endl;
+        file << "<script>" << endl;
+    }
+    file << "//JavaScript code generated by API++" << endl;
+    file << "//API++ by Piccolowen" << endl;
+    file << "window.onload = apifunc()" << endl;
+    file << "async function apifunc() {" << endl;
+    file << "const url = '" << listUrl << "'" << endl;
+    file << "const response = await fetch(url)" << endl;
+    file << "const result = await response.json()" << endl;
+
+    cout << "For this code to work the code needs to place the results in a HTML element with a certain ID value. What should that value be? (no spaces) ";
+    cin >> fileIdValue;
+    system("cls");
+
+    file << "const apiresult = document.getElementById('" << fileIdValue << "')" << endl;
+    file << "console.log('API++ system working...')" << endl;
+    file << "console.log('API++ system by Piccolowen https://github.com/Piccolowen')" << endl;
+    file << "console.log('API++ result:')" << endl;
+    file << "console.log(result)" << endl;
+    file << "const resultLength = Object.keys(result.items).length" << endl;
+    file << "var arrnum = 0" << endl;
+    file << "while (arrnum < resultLength) {" << endl;
+
+    //gather info
+    cout << "Include the title? [Y/N] ";
+    cin >> repoName;
+    cout << "Include the full name? (ex: Piccolowen/APIpp) [Y/N] ";
+    cin >> repoFullName;
+    cout << "Include the description? [Y/N] ";
+    cin >> repoDesc;
+
+    if (repoName == "Y" || repoName == "y") {
+        cout << "Do you want a URL for the title element? [C (custom URL)/R (repo URL)/N (no)] " << endl;
+        cin >> fileTitleLink;
+        if (fileTitleLink == "c" || fileTitleLink == "C") {
+            cout << "Please type custom URL: ";
+            cin >> fileTitleLinkCustom;
+            file << "const title = document.createElement('a')" << endl;
+            file << "title.href = '" << fileTitleLinkCustom << "'" << endl;
+            file << "title.target = '_blank'" << endl;
+        }
+        else if (fileTitleLink == "r" || fileTitleLink == "R") {
+            file << "const title = document.createElement('a')" << endl;
+            file << "title.href = result.items[arrnum].html_url" << endl;
+            file << "title.target = '_blank'" << endl;
+        }
+        else {
+            file << "const title = document.createElement('p')" << endl;
+        }
+        cout << "What should the class name for the title be? (This will allow for styling with CSS) ";
+        cin >> fileTitleClassName;
+        file << "title.className = '" << fileTitleClassName << "'" << endl;
+        file << "title.textContent = result.items[arrnum].name" << endl;
+    }
+
+    if (repoFullName == "y" || repoFullName == "Y") {
+        file << "const fullname = document.createElement('p')" << endl;
+        cout << "What should the class name for the full name be? (the full name will look like this: USERNAME/REPOSITORY) ";
+        cin >> fileFullNameClassName;
+        file << "fullname.className = '" << fileFullNameClassName << "'" << endl;
+        file << "fullname.textContent = result.items[arrnum].full_name" << endl;
+    }
+
+    if (repoDesc == "y" || repoDesc == "Y") {
+        file << "const desc = document.createElement('p')" << endl;
+        cout << "What should the class name for the description be? ";
+        cin >> fileDescClassName;
+        file << "desc.className = '" << fileDescClassName << "'" << endl;
+        file << "desc.textContent = result.items[arrnum].description" << endl;
+    }
+
+    file << "}" << endl;
+    file << "}" << endl;
+    if (javascriptFile == false) {
+        file << "</script>" << endl;
+        file << "</body>" << endl;
+        file << "</html>" << endl;
+    }
+}
+
+int discordstatusapisys() {
+    /*
+
+                var sp = new StatusPage.page({ page: 'srhpyqt94yxb' });
+                sp.summary({
+                    success: function (data) {
+                        console.log(data.components[0].status);
+                        if (data.components[0].status = 'operational') {
+                            var sum = '<h3 class="discord-status-sum-good">Discord is <b>' + data.components[0].status + '</b>!</h3>';
+                            var elsum = document.getElementById('discord-status-summary');
+                            elsum.innerHTML = sum;
+                        }
+                        else {
+                            var sum = '<h3 class="discord-status-sum-else">Discord is <b>' + data.components[0].status + '</b>!</h3>';
+                            var elsum = document.getElementById('discord-status-summary');
+                            elsum.innerHTML = sum;
+                        }
+                        var msg = '<p>discord status summary: <b>' + data.components[0].status + '</b></p>';
+                        var el = document.getElementById('discord-status-components');
+                        el.innerHTML = msg;
+                    }
+                });
+                var sp = new StatusPage.page({ page: 'srhpyqt94yxb' });
+                sp.status({
+                    success: function (data) {
+                        console.log(data.status.indicator);
+                        var msg = '<p>discord status: <b>' + data.status.indicator + '</b></p>';
+                        var el = document.getElementById('discord-status-indicator');
+                        el.innerHTML = msg;
+                    }
+                });
+            */
+    cout << "This API allows you to get the status of Discord." << endl;
+    cout << "What should the class name be for the element? (this allows for styling with CSS) ";
+    cin >> discordClassName;
+    ofstream file((fullFilePath).c_str());
+    file << "//Dicord's code: https://cdn.statuspage.io/se-v2.js" << endl;
+    file << "StatusPage='undefined'==typeof StatusPage?{}:StatusPage,StatusPage.page=function(e){if(e=e||{},!e.page)throw new Error('A pageId is required to initialize.');this.apiKey=e.apiKey||null,this.error=e.error||this.error,this.format=e.format||'json',this.pageId=e.page,this.version=e.version||'v2',this.secure=!('secure'in e)||e.secure,this.protocol=this.secure?'https':'http',this.host=e.host||'statuspage.io',this.host_with_port_and_protocol=e.test?'':this.protocol+'://'+this.pageId+'.'+this.host},StatusPage.page.prototype.serialize=function(e,t){var s=[],r={sms:'email_sms',webhook:'endpoint'};for(var o in e)if('to_sentence'!==o){var i=o;o=o in r?r[o]:o;var a=t?t+'['+o+']':o,n=e[i];s.push('object'==typeof n?this.serialize(n,a):encodeURIComponent(a)+'='+encodeURIComponent(n))}return s.join('&')},StatusPage.page.prototype.createStatusPageCORSRequest=function(e,t){var s=new XMLHttpRequest;return'withCredentials'in s?s.open(e,t,!0):'undefined'!=typeof XDomainRequest?(s=new XDomainRequest,s.open(e,t)):s=null,s},StatusPage.page.prototype.executeRequestAndCallbackWithResponse=function(e){if(!e.path)throw new Error('A path is required to make a request');var t=e.path,s=e.method||'GET',r=e.success||null,o=e.error||this.error,i=this.host_with_port_and_protocol+'/api/'+this.version+'/'+t+'.'+this.format,a=this.createStatusPageCORSRequest(s,i);if(a)if(this.apiKey&&(console.log('!!! API KEY IN USE - REMOVE BEFORE DEPLOYING TO PRODUCTION !!!'),console.log('!!! API KEY IN USE - REMOVE BEFORE DEPLOYING TO PRODUCTION !!!'),console.log('!!! API KEY IN USE - REMOVE BEFORE DEPLOYING TO PRODUCTION !!!'),a.setRequestHeader('Authorization','OAuth '+this.apiKey)),a.onload=function(){var e=JSON.parse(a.responseText);r&&r(e)},a.error=o,'POST'===s||'DELETE'===s){var n=e.data||{};a.setRequestHeader('Content-type','application/x-www-form-urlencoded'),a.send(this.serialize(n))}else a.send()},StatusPage.page.prototype.get=function(e,t){if(t=t||{},!e)throw new Error('Path is required.');if(!t.success)throw new Error('Success Callback is required.');var s=t.success||{},r=t.error||{};this.executeRequestAndCallbackWithResponse({path:e,success:s,error:r,method:'GET'})},StatusPage.page.prototype.post=function(e,t){if(t=t||{},!e)throw new Error('Path is required.');var s={};if('subscribers'===e){if(!t.subscriber)throw new Error('Subscriber is required to post.');s.subscriber=t.subscriber}else{if(!t.data)throw new Error('Data is required to post.');s=t.data}var r=t.success||{},o=t.error||{};this.executeRequestAndCallbackWithResponse({data:s,path:e,success:r,error:o,method:'POST'})},StatusPage.page.prototype['delete']=function(e,t){if(t=t||{},!e)throw new Error('Path is required.');if(!t.subscriber)throw new Error('Data is required to delete.');var s={};'subscribers'===e?s.subscriber=t.subscriber:s=t.data;var r=t.success||{},o=t.error||{};this.executeRequestAndCallbackWithResponse({data:s,path:e,success:r,error:o,method:'DELETE'})},StatusPage.page.prototype.error=function(){console.log('There was an error with your request')},StatusPage.page.prototype.summary=function(e){this.get('summary',e)},StatusPage.page.prototype.status=function(e){this.get('status',e)},StatusPage.page.prototype.components=function(e){this.get('components',e)},StatusPage.page.prototype.incidents=function(e){switch(e.filter){case'unresolved':this.get('incidents/unresolved',e);break;case'resolved':this.get('incidents/resolved',e);break;default:this.get('incidents',e)}},StatusPage.page.prototype.scheduled_maintenances=function(e){switch(e.filter){case'active':this.get('scheduled-maintenances/active',e);break;case'upcoming':this.get('scheduled-maintenances/upcoming',e);break;default:this.get('scheduled-maintenances',e)}},StatusPage.page.prototype.subscribe=function(e){if(!e||!e.subscriber)throw new Error('A subscriber object is required.');this.post('subscribers',e)},StatusPage.page.prototype.unsubscribe=function(e){if(!e||!e.subscriber)throw new Error('A subscriber object is required.');if(!e.subscriber.id)throw new Error('You must supply a subscriber.id in order to cancel a subscription.');this['delete']('subscribers',e)};" << endl;
+    file << "var sp = new StatusPage.page({ page: 'srhpyqt94yxb' });" << endl;
+    file << "sp.summary({" << endl;
+    file << "success: function (data) {" << endl;
+    file << "console.log('API++ Discord Status API system: ' + data.components[0].status);" << endl;
+    file << "const statussum = document.createElement('p')" << endl;
+    file << "statussum.className = '" << discordClassName << "'" << endl;
+    file << "statussum.textContent = data.components[0].status" << endl;
+    file << "}})" << endl;
+}
+
+//responsible for setting prefs (only runs on startup and on command)
 int prefs() {
     //read prefs
     ifstream prefs;
@@ -320,7 +516,7 @@ int prefs() {
         prefs.close();
     }
     else {
-        cout << "Prefs file is not open." << endl;
+        cout << "Prefs file is not open. ERRORCODE=0x1" << endl;
     }
     startup = false;
     return main();

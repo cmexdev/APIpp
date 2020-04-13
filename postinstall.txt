@@ -1,0 +1,5 @@
+Thanks for installing API++!
+
+Make sure to visit documentation on API++: https://piccolowen.github.io/code/apipp/documentation/intro.html
+
+This program is not made for commercial use. Contact me at https://github.com/Piccolowen for more information.

@@ -1,0 +1,22 @@
+window.onload = apifunc()
+    async function apifunc() {
+        const url = 'url'
+        const response = await fetch(url)
+	const result = await response.json()
+        const apiresult = document.getElementById('id')
+        const resultLength = Object.keys(result.items).length
+        var arrnum = 0
+        while (arrnum < resultLength) {
+            const title = document.createElement('a')
+            title.href = 'href'
+            title.target = '_blank'
+            title.className = 'class'
+            title.textContent = result.items[arrnum].name
+            arrnum++
+      	}
+}
+
+what i need:
+
+url for title only
+class name
