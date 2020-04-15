@@ -1,26 +1,42 @@
 //CODE CREATED BY OWEN MAGILL
 //PLEASE RESPECT THE EFFORT PUT INTO THIS CODE
+//
+//THE GOAL OF API++ IS TO MAKE USING API SYSTEMS EASIER
+//
+//COLOR NUMS
+//9 BLUE
+//79 RED BG WITH WHITE TEXT
+//15 WHITE
 
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <windows.h>
+#include <Lmcons.h>
 
 using namespace std;
 
 //declare all wariables
 string newApiOp;
+string mainCommand;
+
 string fileType;
+
 bool javascriptFile;
+bool startup = true;
 string repoSearchType;
 string singleRepoOwner;
 string singleRepoName;
 string singleUrl;
+
 string repoName;
 string repoFullName;
 string repoDesc;
 string repoHtmlUrl;
+
 string fileName = "newApi++File";
 string filePath = "C:\\code\\api++";
+
 string fullFilePath;
 string fullFilePathConfirm;
 string fileIdValue = "apiresultsapi++";
@@ -30,35 +46,57 @@ string fileTitleClassName;
 string fileFullNameClassName;
 string fileDescClassName;
 string listLinkExist;
-bool startup = true;
+
+//prefs
 string prefsName;
 string prefsColon;
 string prefsValue;
+
 string listFilter;
 string listUrl;
 string listInNameKeyword;
 string apiSysType;
 string discordClassName;
-string uninstallLoc = "unins000.exe";
-string mainCommand;
-string confirmUnis;
+string infoText = "info.txt";
+
+//info file
+string infoName;
+string infoEqual = "=";
+string infoValue;
+
+//program info variables
+string programVersion;
+string programVersionStatus;
+string programGitHub;
+string programWebsite;
+string programDocsWebsite;
+string programLangFile;
+string programNullInputValue;
+string programPrefFile;
 
 //main application. responsible for main tasks
 int main() {
     //start API++
     int prefs();
+    int beta();
+    int info();
     if (startup == true) {
-        return prefs();
+        char username[UNLEN+1];
+        DWORD username_len = UNLEN+1;
+        GetUserName(username, &username_len);
+        string currentUser = username;
+        cout << "API++ starting..." << endl;
+        cout << "Reading prefs file..." << endl;
+        //SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), <int>);
+        return info();
         startup = false;
     }
-    cout << "API++ starting..." << endl;
-    cout << "Reading prefs file..." << endl;
-    //warn the user
-    cout << "NOTE: THIS IS A STABLE RELEASE BUT INCOMPLETE AND INCONSISTENT." << endl;
-    system("title API++");
     int apiSys();
-    cout << "API++ ready..." << endl;
+
+    cout << "> ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
     cin >> mainCommand;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     if (mainCommand == "newapiop") {
         cout << "Embed the code directly into a HTML file or put it in a JavaScript file? [H (HTML)/J (JavaScript)] ";
         cin >> fileType;
@@ -74,12 +112,23 @@ int main() {
         }
     }
     else if (mainCommand == "help") {
-        cout << "Need help? Visit the documentation! (https://piccolowen.github.io/code/apipp/documentation/intro.html)" << endl;
+        cout << "Need help? Visit the documentation! (";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
+        cout << "https://piccolowen.github.io/code/apipp/documentation/intro.html";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+        cout << ")" << endl;
+    }
+    else if (mainCommand == "exit") {
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 79);
+        cout << "EXITING..." << endl;
+        return 0;
     }
     else {
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 79);
         cout << "Whoops! Not a command! Hint: type 'newapiop' to create a new API system!" << endl;
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     }
-    return 0;
+    return main();
 }
 
 //THIS CODE WILL BE CHANGED SINCE THERE WILL BE MORE SUPPORTED APIS IN THE FUTURE
@@ -441,37 +490,6 @@ int listInNameFile() {
 }
 
 int discordstatusapisys() {
-    /*
-
-                var sp = new StatusPage.page({ page: 'srhpyqt94yxb' });
-                sp.summary({
-                    success: function (data) {
-                        console.log(data.components[0].status);
-                        if (data.components[0].status = 'operational') {
-                            var sum = '<h3 class="discord-status-sum-good">Discord is <b>' + data.components[0].status + '</b>!</h3>';
-                            var elsum = document.getElementById('discord-status-summary');
-                            elsum.innerHTML = sum;
-                        }
-                        else {
-                            var sum = '<h3 class="discord-status-sum-else">Discord is <b>' + data.components[0].status + '</b>!</h3>';
-                            var elsum = document.getElementById('discord-status-summary');
-                            elsum.innerHTML = sum;
-                        }
-                        var msg = '<p>discord status summary: <b>' + data.components[0].status + '</b></p>';
-                        var el = document.getElementById('discord-status-components');
-                        el.innerHTML = msg;
-                    }
-                });
-                var sp = new StatusPage.page({ page: 'srhpyqt94yxb' });
-                sp.status({
-                    success: function (data) {
-                        console.log(data.status.indicator);
-                        var msg = '<p>discord status: <b>' + data.status.indicator + '</b></p>';
-                        var el = document.getElementById('discord-status-indicator');
-                        el.innerHTML = msg;
-                    }
-                });
-            */
     cout << "This API allows you to get the status of Discord." << endl;
     cout << "What should the class name be for the element? (this allows for styling with CSS) ";
     cin >> discordClassName;
@@ -489,13 +507,57 @@ int discordstatusapisys() {
 }
 
 //responsible for setting prefs (only runs on startup and on command)
-int prefs() {
+int info() {
     //read prefs
-    ifstream prefs;
-    prefs.open("pref.pref");
+    ifstream infoFile;
+    infoFile.open("info.txt");
 
+    if (infoFile.is_open()) {
+        while (infoFile >> infoName >> infoEqual >> infoValue) {
+            if (infoName == "VERSION") {
+                programVersion = infoValue;
+            }
+            else if (infoName == "VERSION_STATUS") {
+                programVersionStatus = infoValue;
+            }
+            else if (infoName == "GITHUB_URL") {
+                programGitHub = infoValue;
+            }
+            else if (infoName == "WEBSITE") {
+                programWebsite = infoValue;
+            }
+            else if (infoName == "DOCS_WEBSITE") {
+                programDocsWebsite = infoValue;
+            }
+            else if (infoName == "TEXT_SOURCE_FILE") {
+                programLangFile = infoValue;
+            }
+            else if (infoName == "NULL_INPUT") {
+                programNullInputValue = infoValue;
+            }
+            else if (infoName == "PREF_FILE") {
+                programPrefFile = infoValue;
+            }
+            else {
+                cout << "Outdated info file. ERRORCODE=0x3" << endl;
+            }
+        }
+        infoFile.close();
+
+    }
+    else {
+        cout << "Info file is not open. ERRORCODE=0x1" << endl;
+    }
+    if (programVersionStatus == "PRE_RELEASE") {
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 79);
+        cout << "NOTE: THIS VERSION IS A PRE-RELEASE FOR VERSION " << programVersion << ". VISIT THE RELEASE INFO FOR MORE INFORMATION." << endl;
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    }
+    system(("title API++ " + programVersion + " [" + programVersionStatus + "]").c_str());
+    ifstream prefs;
+    prefs.open((programPrefFile).c_str());
     if (prefs.is_open()) {
-        while (prefs >> prefsName >> prefsColon >> prefsValue) {
+        while (infoFile >> prefsName >> prefsColon >> prefsValue) {
             if (prefsColon == ":") {
                 if (prefsName == "theme") {
                     if (prefsValue == "dark") {
@@ -509,15 +571,27 @@ int prefs() {
                     }
                 }
                 else {
-                    cout << "Unknown pref..." << endl;
+                    cout << "Unknown info name. ERRORCODE=0x2" << endl;
                 }
             }
         }
         prefs.close();
     }
     else {
-        cout << "Prefs file is not open. ERRORCODE=0x1" << endl;
+        cout << "Prefs file is not open or could not be found. ERRORCODE=0x4" << endl;
     }
     startup = false;
+    cout << "API++ ready..." << endl;
     return main();
+}
+
+int beta() {
+    int main();
+    string fn = "C;\\code\\APIpp\\main.cpp";
+  if(fn.substr(fn.find_last_of(".") + 1) == "cpp") {
+    cout << "Yes..." << endl;
+  } else {
+    cout << "No..." << endl;
+  }
+  return main();
 }

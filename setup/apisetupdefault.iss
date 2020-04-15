@@ -3,7 +3,7 @@
 
 #define MyAppName "API++"
 #define MyAppVersion "1.0"
-#define MyAppPublisher "Piccolowen"
+#define MyAppPublisher "Piccolowen"                                        
 #define MyAppURL "https://piccolowen.github.io/"
 #define MyAppExeName "api++.exe"
 

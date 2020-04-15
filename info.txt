@@ -1,0 +1,8 @@
+VERSION = 1.0.0
+VERSION_STATUS = PRE_RELEASE
+GITHUB_URL = https://github.com/Piccolowen/APIpp
+WEBSITE = https://piccolowen.github.io/code/apipp/apipp
+DOCS_WEBSITE = https://piccolowen.github.io/code/apipp/documentation/intro
+TEXT_SOURCE_FILE = lang_main.txt
+NULL_INPUT = -
+PREF_FILE = pref.pref

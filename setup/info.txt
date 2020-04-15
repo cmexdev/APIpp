@@ -1,1 +1,1 @@
-This API++ installer was created using Inno Setup Compiler (https://jrsoftware.org/isinfo.php)
+This API++ setup was created using Inno Setup Compiler (https://jrsoftware.org/isinfo.php)
