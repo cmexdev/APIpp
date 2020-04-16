@@ -11,3 +11,7 @@ It's easy! Launch the application (keep in mind the program is not released yet,
 `pref.pref`
 `info.txt`
 `README.md`
+
+## OTHER INFO
+
+The program is recongized as malware, so do not be suprised when Windows tells you that it could be dangerous.
