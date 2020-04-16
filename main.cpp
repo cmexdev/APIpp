@@ -114,7 +114,7 @@ int main() {
     else if (mainCommand == "help") {
         cout << "Need help? Visit the documentation! (";
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
-        cout << "https://piccolowen.github.io/code/apipp/documentation/intro.html";
+        cout << "https://piccolowen.github.io/code/apipp/documentation/intro";
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         cout << ")" << endl;
     }
@@ -136,9 +136,11 @@ int main() {
 int apiSys() {
     int githubapisys();
     int discordapisys();
-    system("cls");
+
     //fetch type of embed
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
     cout << "What API system will you be making? [G (GitHub)/D (Dicord)]" << endl;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     cin >> apiSysType;
     if (apiSysType == "g" || apiSysType == "G") {
         return githubapisys();
@@ -157,42 +159,52 @@ int discordapisys() {
 int githubapisys() {
     int fileSys();
     cout << "For your own reference the base URL is https://api.github.com/" << endl;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
     cout << "Choose whether you would like to embed a single repository or a list (found using filters). [R (single repo)/L (list of repos) ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
     cin >> repoSearchType;
-    system("cls");
+
     if (repoSearchType == "R" || repoSearchType == "r") {
         cout << "Please type the owner of the repository you are trying to embed: ";
         cin >> singleRepoOwner;
-        system("cls");
+
         cout << "Please type the name of the repository you are trying to embed: ";
         cin >> singleRepoName;
-        system("cls");
+
         singleUrl = "https://api.github.com/repos/" + singleRepoOwner + "/" + singleRepoName;
         cout << "This is the URL api++ will be using: " << singleUrl << endl;
         cout << "Here is the repo HTML URL (the URL a user would go to view the repo.)" << endl;
         repoHtmlUrl = "https://github.com/" + singleRepoOwner + "/" + singleRepoName;
         cout << repoHtmlUrl << endl;
         system("pause");
-        system("cls");
+
 
         cout << "api++ needs to know what parts of the repo you will want to be displayed." << endl;
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
         cout << "Include title? [Y/N] ";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         cin >> repoName;
-        system("cls");
+
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
         cout << "Include the full name? [Y/N] ";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         cin >> repoFullName;
-        system("cls");
+
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
         cout << "Include the description? [Y/N] ";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         cin >> repoDesc;
-        system("cls");
+
         return fileSys();
     }
     else if (repoSearchType == "l" || "L") {
         cout << "There are many ways to get a list of repositories. With GitHub you have to search with a filter." << endl;
         cout << "To get a full list of filters, go to https://help.github.com/en/github/searching-for-information-on-github/searching-for-repositories" << endl;
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
         cout << "Do you already have a search API URL? [Y/N] ";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         cin >> listLinkExist;
-        system("cls");
+
         if (listLinkExist == "y" || listLinkExist == "Y") {
             cout << "Great that will make this a lot easier!" << endl;
         }
@@ -218,7 +230,7 @@ int githubapisys() {
             \nFilter by whether a repo has been archived or not [arch] \
             " << endl;
             cin >> listFilter;
-            system("cls");
+
             return fileSys();
         }
         else {
@@ -228,7 +240,7 @@ int githubapisys() {
     }
     else {
         cout << "Not one of your options ERRORCODE=0x0" << endl;
-        system("cls");
+
         return apiSys();
     }
 }
@@ -239,28 +251,36 @@ int fileSys() {
     int listFile();
     ofstream file;
         if (javascriptFile == true) {
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
             cout << "What should the JavaScript file be named? (no spaces) ";
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
             cin >> fileName;
-            system("cls");
+
         }
         else if (javascriptFile == false) {
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
             cout << "What should the HTML file be named? (no spaces) ";
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
             cin >> fileName;
-            system("cls");
+
         }
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
         cout << "Where should the file be placed? (no spaces) ";
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
         cin >> filePath;
-        system("cls");
+
         if (javascriptFile == true) {
             fullFilePath = filePath + "\\\\" + fileName + ".js";
         }
         else if (javascriptFile == false) {
             fullFilePath = filePath + "\\\\" + fileName + ".html";
         }
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
         cout << "Is this good? [Y/N]" << endl;
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         cout << fullFilePath << endl;
         cin >> fullFilePathConfirm;
-        system("cls");
+
         //confirm that user is satisfied with full file path
         if (fullFilePathConfirm == "Y" || fullFilePathConfirm == "y") {
             if (repoSearchType == "r" || repoSearchType == "R") {
@@ -303,11 +323,13 @@ int singleFile() {
             file << "const response = await fetch(url);" << endl;
             file << "const result = await response.json();" << endl;
 
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
             cout << "For this code to work the code needs to place the results in a HTML element with a certain ID value. What should that value be? (no spaces) ";
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
             cin >> fileIdValue;
-            system("cls");
+
             cout << "ID value: " << fileIdValue << endl;
-            system("cls");
+
 
             file << "const apiresult = document.getElementById('" << fileIdValue << "');" << endl;
             file << "console.log('api++ system working...')" << endl;
@@ -320,7 +342,7 @@ int singleFile() {
                 file << "console.log('name result: ' + result.name)" << endl;
                 cout << "Should the title element have link? [C (custom link)/R (repo link)/N (no)] ";
                 cin >> fileTitleLink;
-                system("cls");
+
                 if (fileTitleLink == "R" || fileTitleLink == "r") {
                     file << "const title = document.createElement('a')" << endl;
                     file << "title.href = result.html_url" << endl;
@@ -328,7 +350,7 @@ int singleFile() {
                 else if (fileTitleLink == "C" || fileTitleLink == "c") {
                     cout << "Custom URL: ";
                     cin >> fileTitleLinkCustom;
-                    system("cls");
+
                     file << "const title = document.createElement('a')" << endl;
                     file << "title.href = '" << fileTitleLinkCustom << "'" << endl;
                 }
@@ -336,11 +358,13 @@ int singleFile() {
                     file << "const title = document.createElement('p')" << endl;
                 }
                 file << "title.target = '_blank'" << endl;
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
                 cout << "What should the class value be for the title? (the class name allows styling with CSS) [no spaces] ";
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
                 cin >> fileTitleClassName;
-                system("cls");
+
                 cout << "Class name: " << fileTitleClassName << endl;
-                system("cls");
+
                 file << "title.className = '" << fileTitleClassName << "'" << endl;
                 file << "title.textContent = result.name" << endl;
                 file << "apiresult.appendChild(title)" << endl;
@@ -349,11 +373,13 @@ int singleFile() {
             if (repoFullName == "Y" || repoFullName == "y") {
                 file << "console.log('full name result: ' + result.full_name)" << endl;
                 file << "const fullname = document.createElement('p')" << endl;
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
                 cout << "What should the class value be for the full name? (the class name allows styling with CSS) [no spaces] ";
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
                 cin >> fileFullNameClassName;
-                system("cls");
+
                 cout << "Class name: " << fileFullNameClassName << endl;
-                system("cls");
+
                 file << "fullname.className = '" << fileFullNameClassName << "'" << endl;
                 file << "fullname.textContent = result.full_name" << endl;
                 file << "apiresult.appendChild(fullname)" << endl;
@@ -362,11 +388,13 @@ int singleFile() {
             if (repoDesc == "Y" || repoDesc == "y") {
                 file << "console.log('desc result: ' + result.description)" << endl;
                 file << "const desc = document.createElement('p')" << endl;
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
                 cout << "What should the class value be for the description? (the class name allows styling with CSS) [no spaces] ";
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
                 cin >> fileDescClassName;
-                system("cls");
+
                 cout << "Class name: " << fileDescClassName << endl;
-                system("cls");
+
                 file << "desc.className = '" << fileDescClassName << "'" << endl;
                 file << "desc.textContent = result.description" << endl;
                 file << "apiresult.appendChild(desc)" << endl;
@@ -378,7 +406,9 @@ int singleFile() {
                 file << "</script>" << endl;
                 file << "</body>" << endl;
                 file << "</html>" << endl;
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 79);
                 cout << "Make sure to add an element with ID value: " << fileIdValue << "!" << endl;
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
             }
 }
 
@@ -387,7 +417,9 @@ int listFile() {
     int listInNameFile();
     system(("title API++ - New file: "+ fullFilePath).c_str());
     if (listFilter == "inname") {
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
         cout << "Please type the keyword you are searching for: ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         cin >> listInNameKeyword;
         listUrl = "https://api.github.com/search/repositories?q=" + listInNameKeyword + "+in:name";
         cout << "Here is the API URL :" << listUrl << endl;
@@ -419,9 +451,11 @@ int listInNameFile() {
     file << "const response = await fetch(url)" << endl;
     file << "const result = await response.json()" << endl;
 
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
     cout << "For this code to work the code needs to place the results in a HTML element with a certain ID value. What should that value be? (no spaces) ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     cin >> fileIdValue;
-    system("cls");
+
 
     file << "const apiresult = document.getElementById('" << fileIdValue << "')" << endl;
     file << "console.log('API++ system working...')" << endl;
@@ -433,11 +467,17 @@ int listInNameFile() {
     file << "while (arrnum < resultLength) {" << endl;
 
     //gather info
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
     cout << "Include the title? [Y/N] ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     cin >> repoName;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
     cout << "Include the full name? (ex: Piccolowen/APIpp) [Y/N] ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     cin >> repoFullName;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
     cout << "Include the description? [Y/N] ";
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     cin >> repoDesc;
 
     if (repoName == "Y" || repoName == "y") {
