@@ -8,6 +8,8 @@ It's easy! Launch the application (keep in mind the program is not released yet,
 
 ## FILE DEPENDS
 
+### (as of pre-release 1.0.0)
+
 `pref.pref`
 `info.txt`
 `README.md`
