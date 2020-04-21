@@ -1,0 +1,17 @@
+{
+  "name": "apipp",
+  "version": "1.0.0",
+  "description": "API system creator",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^8.2.2"
+  },
+  "dependencies": {
+    "discord-rpc": "^3.1.0"
+  }
+}

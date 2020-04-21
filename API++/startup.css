@@ -1,0 +1,62 @@
+*{
+  padding: 0;
+  margin:0;
+  font-family: segoe ui;
+  font-weight: lighter;
+}
+*:hover {
+  cursor: default;
+}
+body {
+  background: black;
+  overflow: hidden;
+}
+.container {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+.container span {
+  display: block;
+}
+.title {
+  font-size: 120px;
+  letter-spacing: 8px;
+  margin-bottom: 20px;
+  background: black;
+  position: relative;
+  animation: text 3s 1;
+  color: white;
+}
+.desc  {
+  font-size: 30px;
+  color: gold;
+}
+.button {
+  font-size: 30px;
+  transition: 300ms;
+  position: absolute;
+  padding-top: 480px;
+}
+.button:hover{
+  cursor: pointer;
+  color: blue;
+}
+
+@keyframes text {
+  0% {
+    color: black;
+    margin-bottom: -40px;
+  }
+  30% {
+    letter-spacing: 16px;
+    margin-bottom: -40px;
+  }
+  85% {
+    letter-spacing: 8px;
+    margin-bottom: -40px;
+  }
+}

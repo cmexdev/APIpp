@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Create new file</title>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <script src="index.js"></script>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link href="def.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper">
+        <p class="new-title">Create a new file</p>
+        <p class="new-desc">To get started enter some details for your file.</p>
+        <p class="new-file-name">First enter a <a href="">file name</a>:</p>
+        <input type="text" id="filename">
+        <p class="new-file-path">Now enter the <a href="">file path</a>:</p>
+        <input type="text" id="filepath">
+        <br>
+        <a class="new-continue" id="continue" onclick="fileInfo()">Continue</a>
+        <script type="text/javascript">
+          function fileInfo() {
+            var filename = document.getElementById('filename').value
+            var filepath = document.getElementById('filepath').value
+            console.log('filename=' + filename + ' filepath=' + filepath)
+            var fullFilePath = filepath + "\\\\" + filename + ".js"
+
+            var fs = require('fs')
+
+            fs.writeFile("console\\fullFilePath.txt", fullFilePath, function (err) {
+              if (err) throw err
+              console.log('Data saved')
+              window.location = 'newType.html'
+            })
+          }
+        </script>
+    </div>
+    <div class="footer">
+        <p class="footer-c">Not where you wanted to be? <a href="index.html">Go back</a>.</p>
+    </div>
+    <script>
+        const { remote } = require('electron')
+        const { Menu, MenuItem } = remote
+
+        const menu = new Menu()
+        menu.append(new MenuItem({ label: 'Help', click() { console.log('request help') } }))
+        menu.append(new MenuItem({ type: 'separator' }))
+        menu.append(new MenuItem({ label: 'Close', click() { console.log('close app') } }))
+
+        window.addEventListener('contextmenu', (e) => {
+            e.preventDefault()
+            menu.popup({ window: remote.getCurrentWindow() })
+        }, false)
+    </script>
+</body>
+<style>
+    html {
+        font-size: 30px;
+    }
+    .new-title {
+      font-size: 60px;
+    }
+    .new-desc {
+      font-size: 40px;
+    }
+    .new-continue {
+      position: fixed;
+      bottom: 40px;
+      width: 100%;
+      font-size: 40px;
+    }
+    .new-continue:hover {
+      cursor: pointer;
+    }
+    #filename, #filepath {
+      font-size: 40px;
+    }
+</style>
+</html>

@@ -13,6 +13,7 @@
 #include <fstream>
 #include <windows.h>
 #include <Lmcons.h>
+#include "resource.h"
 
 using namespace std;
 
@@ -80,6 +81,7 @@ int main() {
     int prefs();
     int beta();
     int info();
+    int apiSys();
     if (startup == true) {
         char username[UNLEN+1];
         DWORD username_len = UNLEN+1;
@@ -91,22 +93,23 @@ int main() {
         return info();
         startup = false;
     }
-    int apiSys();
 
+    //get main input
     cout << "> ";
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 9);
     cin >> mainCommand;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+
     if (mainCommand == "newapiop") {
         cout << "Embed the code directly into a HTML file or put it in a JavaScript file? [H (HTML)/J (JavaScript)] ";
         cin >> fileType;
         if (fileType == "h" || fileType == "H") {
-            cout << "api++ will embed the code into a HTML file." << endl;
+            cout << "API++ will embed the code into a HTML file." << endl;
             javascriptFile = false;
             return apiSys();
         }
         else if (fileType == "j" || fileType == "J") {
-            cout << "api++ will put the code into a .js file." << endl;
+            cout << "API++ will put the code into a .js file." << endl;
             javascriptFile = true;
             return apiSys();
         }
@@ -131,6 +134,8 @@ int main() {
     return main();
 }
 
+
+
 //THIS CODE WILL BE CHANGED SINCE THERE WILL BE MORE SUPPORTED APIS IN THE FUTURE
 //get the type of API sys
 int apiSys() {
@@ -142,6 +147,7 @@ int apiSys() {
     cout << "What API system will you be making? [G (GitHub)/D (Dicord)]" << endl;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     cin >> apiSysType;
+
     if (apiSysType == "g" || apiSysType == "G") {
         return githubapisys();
     }
@@ -149,6 +155,8 @@ int apiSys() {
         return discordapisys();
     }
 }
+
+
 
 int discordapisys() {
     int discordstatusapisys();
@@ -161,7 +169,7 @@ int githubapisys() {
     cout << "For your own reference the base URL is https://api.github.com/" << endl;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
     cout << "Choose whether you would like to embed a single repository or a list (found using filters). [R (single repo)/L (list of repos) ";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     cin >> repoSearchType;
 
     if (repoSearchType == "R" || repoSearchType == "r") {
@@ -266,7 +274,7 @@ int fileSys() {
         }
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
         cout << "Where should the file be placed? (no spaces) ";
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         cin >> filePath;
 
         if (javascriptFile == true) {
@@ -417,9 +425,9 @@ int listFile() {
     int listInNameFile();
     system(("title API++ - New file: "+ fullFilePath).c_str());
     if (listFilter == "inname") {
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
         cout << "Please type the keyword you are searching for: ";
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         cin >> listInNameKeyword;
         listUrl = "https://api.github.com/search/repositories?q=" + listInNameKeyword + "+in:name";
         cout << "Here is the API URL :" << listUrl << endl;
@@ -471,10 +479,12 @@ int listInNameFile() {
     cout << "Include the title? [Y/N] ";
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     cin >> repoName;
+
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
     cout << "Include the full name? (ex: Piccolowen/APIpp) [Y/N] ";
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
     cin >> repoFullName;
+
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 47);
     cout << "Include the description? [Y/N] ";
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);

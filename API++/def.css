@@ -1,0 +1,36 @@
+  html {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: lighter;
+    margin: 0px;
+    padding: 0px;
+    color: white;
+    background-color: black;
+  }
+  body {
+    margin-left: 5px;
+  }
+  html:hover {
+    cursor: default;
+  }
+  * {
+    padding: 0px;
+    margin: 0px;
+  }
+a {
+    text-decoration: none;
+    color: darkblue;
+    transition: 300ms;
+  }
+  a:hover {
+    color: blue;
+    cursor: pointer;
+  }
+  .footer {
+    text-align: left;
+  }
+  .footer-c {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    font-size: 25px;
+  }

@@ -2,10 +2,13 @@
 1585702678 source:c:\code\api++\main.cpp
 	<iostream>
 
-1586992500 source:c:\code\apipp\main.cpp
+1587079012 source:c:\code\apipp\main.cpp
 	<iostream>
 	<string>
 	<fstream>
 	<windows.h>
 	<Lmcons.h>
+	"resource.h"
+
+1587078961 c:\code\apipp\resource.h
 

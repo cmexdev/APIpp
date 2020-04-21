@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>API++</title>
+    <div id="apippdesc-title">
+      <!--<script src="apis\\apippdesc.js"></script>-->
+    </div>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <link href="def.css" rel="stylesheet">
+    <script src="index.js"></script>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"/>
+      <div class="titlebar" style="-webkit-app-region: drag">
+        <p class="titlebar-c">
+          <span class="titlebar-ops">API++ | </span> <!-- <a style="text-align: right;" class="minimize" onclick="min()">-</a> <a
+        style="text-align: right;" class="maximize" onclick="function max() { win.maximize()
+           win.show() }">[]</a> --> <a style="text-align: right;" class="close"
+            onclick="welcomeExit()">X</a>
+        </p>
+        <style>
+          .minimize,
+          .maximize,
+          .close {
+            text-align: right;
+          }
+        </style>
+      </div>
+  </head>
+  <body>
+    <p class="welcome-title">API++ <span class="title-small"></span></p>
+    <br>
+    <a href="new.html" class="welcome-new">New</a>
+    <span class="welcome-new-h">Create a new file</span>
+    <br>
+    <a class="welcome-help">Help</a>
+    <span class="welcome-help-h" onclick="openDocs()">Get help</span>
+    <script>
+    const { shell } = require('electron')
+    function openDocs() {
+      shell.openExternal('https://piccolowen.github.io/code/apipp/documentation/intro.html')
+      console.log('opened link?')
+    }
+
+    </script>
+    <br>
+    <a class="welcome-exit" onclick="welcomeExit()">Exit</a>
+    <span class="welcome-exit-h">Exit the program</span>
+    <div class="footer">
+      <p class="footer-c">API++ - version 1.5.0</p>
+    </div>
+    <script>
+      const { remote } = require('electron')
+      const { Menu, MenuItem } = remote
+
+      const menu = new Menu()
+      menu.append(new MenuItem({ label: 'Help', click() { console.log('request help') } }))
+      menu.append(new MenuItem({ type: 'separator' }))
+      menu.append(new MenuItem({ label: 'Close', click() {console.log('close app')} }))
+
+      window.addEventListener('contextmenu', (e) => {
+        e.preventDefault()
+        menu.popup({ window: remote.getCurrentWindow() })
+      }, false)
+    </script>
+  </body>
+</html>
+<style>
+  .welcome-title {
+    font-size: 150px;
+    margin: 0;
+  }
+  .welcome-new {
+    font-size: 75px;
+    padding-right: 5px;
+  }
+  .welcome-exit {
+    font-size: 75px;
+    padding-right: 5px;
+  }
+  .welcome-new-h {
+    margin-left: -100%;
+    font-size: 30px;
+  }
+  .welcome-new:hover~.welcome-new-h, .welcome-new-h:hover {
+    animation: welcomeNewH 300ms 1;
+    margin-left: 0;
+  }
+  @keyframes welcomeNewH {
+    0% {
+      display: none;
+      margin-left: -100%;
+    }
+    100% {
+      display: block;
+      margin-left: 0%;
+    }
+  }
+  .welcome-help-h {
+    margin-left: -100%;
+    font-size: 30px;
+  }
+  .welcome-help:hover~.welcome-help-h, .welcome-help-h:hover {
+    animation: welcomeHelpH 300ms 1;
+    margin-left: 0;
+  }
+  @keyframes welcomeHelpH {
+    0% {
+      display: none;
+      margin-left: -100%;
+    }
+    100% {
+      display: block;
+      margin-left: 0%;
+    }
+  }
+  .welcome-exit-h {
+    margin-left: -100%;
+    font-size: 30px;
+  }
+  .welcome-exit:hover~.welcome-exit-h, .welcome-exit-h:hover {
+    animation: welcomeHelpH 300ms 1;
+    margin-left: 0;
+  }
+  @keyframes welcomeHelpH {
+    0% {
+      display: none;
+      margin-left: -100%;
+    }
+    100% {
+      display: block;
+      margin-left: 0%;
+    }
+  }
+  .welcome-help {
+    font-size: 75px;
+    padding-right: 5px;
+  }
+  .welcome-exit:hover {
+    cursor: pointer;
+  }
+  .title-small {
+    font-size: 40px;
+  }
+  .titlebar {
+    background-color: black;
+    border-top: black;
+    border-left: black;
+    border-right: black;
+    border-bottom: white;
+    border-style: solid;
+    -webkit-user-select: none;
+  }
+  .titlebar-c {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  .minimize, .maximize, .close {
+    text-align: right;
+    -webkit-app-region: no-drag;
+    margin-left: 10px;
+    font-weight: bold;
+  }
+  .maximize {
+    letter-spacing: 2px;
+    color: green;
+  }
+  .close {
+    color: darkred;
+  }
+  .close:hover {
+    color: red;
+  }
+  .minimize {
+    color: yellow;
+  }
+</style>
